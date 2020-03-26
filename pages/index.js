@@ -1,7 +1,6 @@
 import React from 'react'
 import { assign, Machine } from 'xstate'
 import { useMachine } from '@xstate/react'
-import styled from 'styled-components'
 import CountrySelector from '../components/CountrySelector'
 import Stat from '../components/Stat'
 import CountrySearch from '../components/CountrySearch'
@@ -9,16 +8,16 @@ import GlobalStyles from '../components/GlobalStyles'
 
 const statsApi = 'https://coronavirus-19-api.herokuapp.com/countries'
 
-const covidMachine = Machine(
+const statsMachine = Machine(
   {
-    id: 'covidMachine',
-    initial: 'fetchingStats',
+    id: 'statsMachine',
+    initial: 'fetchStats',
     context: {
       countriesSelected: [],
       stats: null,
     },
     states: {
-      fetchingStats: {
+      fetchStats: {
         invoke: {
           src: 'fetchCovidStats',
           onDone: { target: 'ready', actions: 'assignStats' },
@@ -28,7 +27,7 @@ const covidMachine = Machine(
       ready: {
         on: {
           COUNTRY_SELECTED: { actions: 'updateSelectedCountry' },
-          FETCH_STATS: 'fetchingStats',
+          FETCH_STATS: 'fetchStats',
         },
       },
       error: {},
@@ -67,12 +66,12 @@ const covidMachine = Machine(
 )
 
 const HomePage = () => {
-  const [current, send] = useMachine(covidMachine)
+  const [current, send] = useMachine(statsMachine)
   return (
     <div>
       <GlobalStyles />
       <h3>Covid 19 information</h3>
-      {current.matches('fetchingStats') && <div>loading...</div>}
+      {current.matches('fetchStats') && <div>loading...</div>}
       {current.matches('error') && <div>fetching stats error</div>}
       {current.matches('ready') && (
         <>
