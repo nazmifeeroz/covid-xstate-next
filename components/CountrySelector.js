@@ -1,15 +1,37 @@
 import React from 'react'
+import styled from 'styled-components'
 
 const Stats = ({ handleChange, stats }) => (
   <div>
-    <br />
-    <select onChange={handleChange}>
+    <Selector onChange={handleChange}>
       <option>Select a country</option>
       {stats.map((stat, i) => (
         <option key={`${stat.country}-${i}`}>{stat.country}</option>
       ))}
-    </select>
+    </Selector>
   </div>
 )
+
+const Selector = styled.select`
+  -webkit-box-align: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  cursor: default;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  min-height: 38px;
+  position: relative;
+  box-sizing: border-box;
+  border-color: rgb(204, 204, 204);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  transition: all 100ms ease 0s;
+  outline: 0px !important;
+  font-size: 15px;
+  margin-bottom: 10px;
+`
 
 export default Stats
