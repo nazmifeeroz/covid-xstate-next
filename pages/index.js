@@ -3,6 +3,7 @@ import { assign, Machine } from 'xstate'
 import { useMachine } from '@xstate/react'
 import CountrySelector from '../components/CountrySelector'
 import Stat from '../components/Stat'
+import CountrySearch from '../components/CountrySearch'
 
 const statsApi = 'https://coronavirus-19-api.herokuapp.com/countries'
 
@@ -11,7 +12,7 @@ const covidMachine = Machine(
     id: 'covidMachine',
     initial: 'fetchingStats',
     context: {
-      countrySelected: null,
+      countriesSelected: [],
       stats: null,
     },
     states: {
@@ -37,8 +38,14 @@ const covidMachine = Machine(
         stats: e.data,
       })),
       updateSelectedCountry: assign((ctx, e) => ({
-        countrySelected: ctx.stats.find(
-          stat => stat.country === e.country.target.value,
+        countriesSelected: ctx.stats.reduce(
+          (acc, stat) =>
+            stat.country
+              .toLowerCase()
+              .match(e.country.target.value.toLowerCase())
+              ? [...acc, stat]
+              : acc,
+          [],
         ),
       })),
     },
@@ -65,13 +72,18 @@ const HomePage = () => {
       {current.matches('fetchingStats') && <div>loading...</div>}
       {current.matches('error') && <div>fetching stats error</div>}
       {current.matches('ready') && (
-        <CountrySelector
-          handleChange={country => send('COUNTRY_SELECTED', { country })}
-          stats={current.context.stats}
-        />
+        <>
+          <CountrySearch
+            handleChange={country => send('COUNTRY_SELECTED', { country })}
+          />
+          <CountrySelector
+            handleChange={country => send('COUNTRY_SELECTED', { country })}
+            stats={current.context.stats}
+          />
+        </>
       )}
-      {current.context.countrySelected && (
-        <Stat stat={current.context.countrySelected} />
+      {current.context.countriesSelected.length > 0 && (
+        <Stat stats={current.context.countriesSelected} />
       )}
     </div>
   )

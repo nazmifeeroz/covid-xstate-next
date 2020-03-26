@@ -2,7 +2,7 @@ import React from 'react'
 
 const Stats = ({ handleChange, stats }) => (
   <div>
-    Select a country:{' '}
+    <br />
     <select onChange={handleChange}>
       <option>Select a country</option>
       {stats.map((stat, i) => (
