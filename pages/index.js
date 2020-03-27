@@ -94,7 +94,7 @@ const HomePage = () => {
 
 const Footer = styled.div`
   position: fixed;
-  bottom: 0;
+  bottom: 5px;
 `
 
 export default HomePage
