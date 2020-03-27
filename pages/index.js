@@ -87,8 +87,14 @@ const HomePage = () => {
       {current.context.countriesSelected.length > 0 && (
         <Stat stats={current.context.countriesSelected} />
       )}
+      <Footer>Built with &hearts; by Nazmi</Footer>
     </div>
   )
 }
+
+const Footer = styled.div`
+  position: fixed;
+  bottom: 0;
+`
 
 export default HomePage
