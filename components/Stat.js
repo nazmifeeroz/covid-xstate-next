@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 const Stat = ({ stats }) => {
   return stats.map((stat, i) => (
@@ -6,9 +6,9 @@ const Stat = ({ stats }) => {
       <br />
       <b>{stat.country}</b>
       <br />
-      Cases: {stat.cases} | Today: {stat.todayCases} | Active: {stat.active}{' '}
+      Cases: {stat.cases} | Today: {stat.todayCases} | Active: {stat.active}
       <br />
-      Deaths: {stat.deaths} | Recovered: {stat.recovered} | Critical:{' '}
+      Deaths: {stat.deaths} | Recovered: {stat.recovered} | Critical:{" "}
       {stat.critical}
     </div>
   ))

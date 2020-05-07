@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react"
+import styled from "styled-components"
 
-const Stats = ({ handleChange, stats }) => (
+const CountrySelector = ({ handleChange, stats }) => (
   <div>
     <Selector onChange={handleChange}>
       <option>Select a country</option>
@@ -34,4 +34,4 @@ const Selector = styled.select`
   margin-bottom: 10px;
 `
 
-export default Stats
+export default CountrySelector

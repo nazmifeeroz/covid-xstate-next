@@ -1,11 +1,11 @@
-import { assign, Machine } from 'xstate'
+import { assign, Machine } from "xstate"
 
-const statsApi = 'https://coronavirus-19-api.herokuapp.com/countries'
+const statsApi = "https://coronavirus-19-api.herokuapp.com/countries"
 
 const statsMachine = Machine(
   {
-    id: 'statsMachine',
-    initial: 'fetchStats',
+    id: "statsMachine",
+    initial: "fetchStats",
     context: {
       countriesSelected: [],
       stats: null,
@@ -13,15 +13,14 @@ const statsMachine = Machine(
     states: {
       fetchStats: {
         invoke: {
-          src: 'fetchCovidStats',
-          onDone: { target: 'ready', actions: 'assignStats' },
-          onError: 'error',
+          src: "fetchCovidStats",
+          onDone: { target: "ready", actions: "assignStats" },
+          onError: "error",
         },
       },
       ready: {
         on: {
-          COUNTRY_SELECTED: { actions: 'updateSelectedCountry' },
-          FETCH_STATS: 'fetchStats',
+          COUNTRY_SELECTED: { actions: "updateSelectedCountry" },
         },
       },
       error: {},
@@ -40,7 +39,7 @@ const statsMachine = Machine(
               .match(e.country.target.value.toLowerCase())
               ? [...acc, stat]
               : acc,
-          [],
+          []
         ),
       })),
     },
@@ -48,15 +47,15 @@ const statsMachine = Machine(
       fetchCovidStats: () =>
         new Promise(async (res, rej) => {
           try {
-            const data = await fetch(statsApi).then(resp => resp.json())
+            const data = await fetch(statsApi).then((resp) => resp.json())
             return res(data)
           } catch (error) {
-            console.log('error in fetching stats: ', error)
+            console.log("error in fetching stats: ", error)
             return rej()
           }
         }),
     },
-  },
+  }
 )
 
 export default statsMachine
