@@ -1,6 +1,7 @@
 # Covid 19 Information App
 
-[![Deploy to Vercel](https://vercel.com/button)](/import/project?template=https://github.com/nazmifeeroz/covid-xstate-next)
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/nazmifeeroz/covid-xstate-next)
+[![Deploy to Vercel](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/nazmifeeroz/covid-xstate-next)
 
 > Built with xState, Next.JS and Styled Components
 > This app serves to provide information on the latest meters of the virus spread around the world
